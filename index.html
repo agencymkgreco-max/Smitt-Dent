@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dra. Smitt — Odontología Estética</title>
+  <link rel="icon" href="smitt.ico" type="image/x-icon" />
+
+  <!-- ════════════════════════════════════════════
+       FUENTES — Google Fonts
+       Cormorant Garamond: display elegante
+       DM Sans: cuerpo limpio y moderno
+  ════════════════════════════════════════════ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ════════════════════════════════════════
+       RESET & VARIABLES
+    ════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #F7F3EE;
+      --ivory:   #EDE8E0;
+      --blush:   #C8A898;
+      --rose:    #9E6B5A;
+      --dark:    #1C1714;
+      --mid:     #4A3F39;
+      --light:   #8C8078;
+      --white:   #FFFFFF;
+
+      --f-display: 'Cormorant Garamond', serif;
+      --f-body:    'DM Sans', sans-serif;
+
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: var(--f-body);
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    img { display: block; width: 100%; object-fit: cover; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ════════════════════════════════════════
+       CURSOR PERSONALIZADO
+    ════════════════════════════════════════ */
+    .cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+    }
+    .cursor-dot {
+      width: 8px; height: 8px;
+      background: var(--rose);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid var(--blush);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: transform 0.25s var(--ease-out-expo), width 0.3s, height 0.3s;
+    }
+    body:hover .cursor-dot  { transform: translate(-50%,-50%) scale(1); }
+    a:hover ~ .cursor .cursor-ring,
+    button:hover ~ .cursor .cursor-ring { width: 56px; height: 56px; }
+
+    /* ════════════════════════════════════════
+       NAVBAR
+    ════════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1.5rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.5s, padding 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(247,243,238,0.92);
+      backdrop-filter: blur(12px);
+      padding: 1rem 3rem;
+      border-bottom: 1px solid var(--ivory);
+    }
+
+    .nav-logo {
+      font-family: var(--f-display);
+      font-size: 1.5rem;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      transition: color 0.4s;
+    }
+    nav.scrolled .nav-logo { color: var(--dark); }
+
+    .nav-links {
+      display: flex; gap: 2.5rem; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.3s;
+      position: relative;
+    }
+    nav.scrolled .nav-links a { color: var(--mid); }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--rose);
+      transition: width 0.35s var(--ease-out-expo);
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.6rem;
+      border: 1px solid rgba(255,255,255,0.6);
+      color: var(--white);
+      border-radius: 2px;
+      transition: all 0.35s;
+    }
+    nav.scrolled .nav-cta {
+      border-color: var(--rose);
+      color: var(--rose);
+    }
+    .nav-cta:hover {
+      background: var(--rose);
+      border-color: var(--rose);
+      color: var(--white) !important;
+    }
+
+    /* ════════════════════════════════════════
+       HERO — Imagen portada grande
+    ════════════════════════════════════════ */
+    .hero {
+      position: relative;
+      height: 100vh; min-height: 680px;
+      overflow: hidden;
+      display: flex; align-items: flex-end;
+    }
+
+    /* ──────────────────────────────────────
+       📷 IMAGEN HERO
+       Reemplaza esta sección con tu foto.
+       Tipo recomendado:
+         - Foto horizontal del equipo en el consultorio
+         - Resolución mínima: 1920×1080 px
+         - Formato: JPG o WebP
+         - Tono: cálido, profesional, con luz natural si es posible
+       Cómo reemplazar:
+         1. Sube la foto a la misma carpeta que index.html con nombre "hero.jpg"
+         2. Quita el bloque .hero-placeholder y descomenta la línea <img>
+    ────────────────────────────────────── -->
+    .hero-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform: scale(1.08);
+      animation: heroZoom 10s var(--ease-out-expo) forwards;
+    }
+    @keyframes heroZoom {
+      to { transform: scale(1); }
+    }
+
+    /* PLACEHOLDER temporal — borra esto cuando tengas la foto */
+    .hero-placeholder {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #3D2B24 0%, #7A5248 40%, #C8A898 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 1rem;
+    }
+    .hero-placeholder span {
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .hero-placeholder .ph-icon {
+      font-size: 3rem; opacity: 0.3;
+    }
+    /* FIN PLACEHOLDER */
+
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(28,23,20,0.15) 0%,
+        rgba(28,23,20,0.0)  40%,
+        rgba(28,23,20,0.55) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 4rem 3rem 5rem;
+      max-width: 900px;
+    }
+
+    .hero-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--blush);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s 0.4s var(--ease-out-expo) forwards;
+    }
+    .hero-title {
+      font-family: var(--f-display);
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 300;
+      line-height: 1.05;
+      color: var(--white);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s 0.6s var(--ease-out-expo) forwards;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--blush);
+    }
+    .hero-sub {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.75);
+      margin-top: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s 0.85s var(--ease-out-expo) forwards;
+    }
+    .hero-actions {
+      margin-top: 2.5rem;
+      display: flex; gap: 1.2rem; flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.9s 1.05s var(--ease-out-expo) forwards;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 2.4rem;
+      background: var(--rose);
+      color: var(--white);
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .btn-primary:hover { background: #7D5244; transform: translateY(-2px); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 0.9rem 2rem;
+      border: 1px solid rgba(255,255,255,0.5);
+      color: var(--white);
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.12); }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 2rem; right: 3rem;
+      z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      opacity: 0;
+      animation: fadeUp 1s 1.4s var(--ease-out-expo) forwards;
+    }
+    .scroll-hint span {
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      writing-mode: vertical-rl;
+    }
+    .scroll-line {
+      width: 1px; height: 60px;
+      background: rgba(255,255,255,0.3);
+      position: relative; overflow: hidden;
+    }
+    .scroll-line::after {
+      content: '';
+      position: absolute; top: -100%;
+      width: 1px; height: 100%;
+      background: var(--blush);
+      animation: scrollLine 2s 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%   { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    /* ════════════════════════════════════════
+       TRANSICIÓN HERO → ABOUT (clip-path)
+    ════════════════════════════════════════ */
+    .wave-divider {
+      position: relative;
+      height: 80px;
+      background: var(--cream);
+      margin-top: -80px;
+      z-index: 3;
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    /* ════════════════════════════════════════
+       SECCIÓN INTRO / SOBRE LA DRA.
+    ════════════════════════════════════════ */
+    .section-intro {
+      padding: 7rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .intro-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1.5rem;
+    }
+    .intro-title {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--dark);
+    }
+    .intro-title em { font-style: italic; color: var(--rose); }
+
+    .intro-body {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--mid);
+      margin-top: 1.5rem;
+    }
+    .intro-signature {
+      font-family: var(--f-display);
+      font-style: italic;
+      font-size: 1.8rem;
+      color: var(--rose);
+      margin-top: 2rem;
+    }
+
+    .intro-img-wrap {
+      position: relative;
+    }
+    /* ──────────────────────────────────────
+       📷 IMAGEN DRA. SMITT (retrato)
+       Tipo recomendado:
+         - Retrato profesional de la doctora
+         - Formato vertical, mínimo 800×1000 px
+         - Fondo neutro o consultorio detrás
+         - Nombre de archivo: "dra.jpg"
+    ────────────────────────────────────── */
+    .intro-img {
+      aspect-ratio: 4/5;
+      border-radius: 3px;
+      object-fit: cover;
+    }
+    .intro-img-placeholder {
+      aspect-ratio: 4/5;
+      background: linear-gradient(160deg, var(--ivory) 0%, var(--blush) 100%);
+      border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.8rem;
+    }
+    .intro-img-placeholder span {
+      font-family: var(--f-display);
+      font-size: 0.9rem;
+      color: rgba(100,70,60,0.55);
+      letter-spacing: 0.15em;
+      text-align: center;
+      padding: 0 2rem;
+    }
+
+    .intro-accent {
+      position: absolute;
+      top: -1.5rem; left: -1.5rem;
+      width: 120px; height: 120px;
+      border: 1px solid var(--blush);
+      border-radius: 3px;
+      z-index: -1;
+    }
+    .intro-badge {
+      position: absolute;
+      bottom: 2rem; right: -2rem;
+      background: var(--white);
+      border-radius: 3px;
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    .intro-badge strong {
+      font-family: var(--f-display);
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--rose);
+      display: block;
+    }
+    .intro-badge span {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--light);
+    }
+
+    /* ════════════════════════════════════════
+       SERVICIOS
+    ════════════════════════════════════════ */
+    .section-services {
+      background: var(--dark);
+      padding: 7rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Textura de fondo decorativa */
+    .section-services::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: radial-gradient(circle at 20% 50%, rgba(200,168,152,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(158,107,90,0.06) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .services-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    .services-head {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 4rem; flex-wrap: wrap; gap: 1.5rem;
+    }
+    .services-head .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--blush);
+      margin-bottom: 1rem;
+    }
+    .services-head h2 {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.15;
+    }
+    .services-head h2 em { font-style: italic; color: var(--blush); }
+    .services-note {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.4);
+      max-width: 280px;
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .service-card {
+      background: var(--dark);
+      padding: 2.8rem 2.4rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s;
+      cursor: default;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(158,107,90,0.12), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .service-card:hover { background: #241E1B; }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-num {
+      font-family: var(--f-display);
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: rgba(200,168,152,0.15);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      transition: color 0.4s;
+    }
+    .service-card:hover .service-num { color: rgba(200,168,152,0.3); }
+
+    .service-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+    .service-name {
+      font-family: var(--f-display);
+      font-size: 1.45rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 0.8rem;
+    }
+    .service-desc {
+      font-size: 0.87rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+    }
+    .service-arrow {
+      position: absolute;
+      bottom: 2.2rem; right: 2rem;
+      font-size: 1.2rem;
+      color: var(--rose);
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: all 0.35s var(--ease-out-expo);
+    }
+    .service-card:hover .service-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ════════════════════════════════════════
+       GALERÍA / ANTES & DESPUÉS
+    ════════════════════════════════════════ */
+    .section-gallery {
+      padding: 7rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .gallery-head {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .gallery-head .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1rem;
+    }
+    .gallery-head h2 {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--dark);
+    }
+    .gallery-head h2 em { font-style: italic; color: var(--rose); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 1rem;
+    }
+
+    /* ──────────────────────────────────────
+       📷 GALERÍA DE CASOS / RESULTADOS
+       Tipo recomendado:
+         - Fotos de sonrisas de pacientes (con permiso)
+         - Fotos antes/después de tratamientos
+         - Imágenes del consultorio
+         - Resolución: mínimo 800×600 px
+         - Nombres sugeridos: gallery1.jpg, gallery2.jpg, ... gallery5.jpg
+       La tarjeta grande ocupa el doble de filas.
+    ────────────────────────────────────── -->
+    .gallery-item {
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery-item.large {
+      grid-row: span 2;
+    }
+
+    .gallery-ph {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.5rem;
+      background: var(--ivory);
+    }
+    .gallery-item.large .gallery-ph { min-height: 460px; }
+
+    .gallery-ph span {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--light);
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .gallery-ph .ph-num {
+      font-family: var(--f-display);
+      font-size: 2rem;
+      color: var(--blush);
+    }
+
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(28,23,20,0.6), transparent);
+      opacity: 0;
+      transition: opacity 0.4s;
+      display: flex; align-items: flex-end;
+      padding: 1.5rem;
+    }
+    .gallery-overlay span {
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      color: var(--white);
+      font-style: italic;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-item img,
+    .gallery-item .gallery-ph { transition: transform 0.6s var(--ease-out-expo); }
+    .gallery-item:hover img,
+    .gallery-item:hover .gallery-ph { transform: scale(1.04); }
+
+    /* ════════════════════════════════════════
+       TESTIMONIOS
+    ════════════════════════════════════════ */
+    .section-reviews {
+      background: var(--ivory);
+      padding: 7rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .section-reviews::before {
+      content: '"';
+      font-family: var(--f-display);
+      font-size: 30rem;
+      color: rgba(158,107,90,0.05);
+      position: absolute;
+      top: -5rem; left: -2rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .reviews-inner { max-width: 1100px; margin: 0 auto; }
+
+    .reviews-head {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .reviews-head .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1rem;
+    }
+    .reviews-head h2 {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--dark);
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .review-card {
+      background: var(--white);
+      border-radius: 3px;
+      padding: 2.4rem;
+      position: relative;
+      transition: transform 0.4s var(--ease-out-expo), box-shadow 0.4s;
+    }
+    .review-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.07);
+    }
+    .review-stars {
+      color: var(--rose);
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.2rem;
+    }
+    .review-text {
+      font-family: var(--f-display);
+      font-size: 1.15rem;
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--mid);
+      margin-bottom: 1.5rem;
+    }
+    .review-author {
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--rose);
+    }
+
+    /* ════════════════════════════════════════
+       REDES SOCIALES
+    ════════════════════════════════════════ */
+    .section-social {
+      padding: 6rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .social-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 1rem;
+    }
+    .social-title {
+      font-family: var(--f-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 3rem;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-btn {
+      display: flex; align-items: center; gap: 0.8rem;
+      padding: 1rem 2rem;
+      border: 1px solid var(--ivory);
+      border-radius: 3px;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--mid);
+      background: var(--white);
+      transition: all 0.35s var(--ease-out-expo);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    }
+    .social-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+    }
+    .social-btn svg { width: 18px; height: 18px; }
+
+    .social-btn.fb:hover   { border-color: #1877F2; color: #1877F2; }
+    .social-btn.ig:hover   { border-color: #E4405F; color: #E4405F; }
+    .social-btn.tt:hover   { border-color: #010101; color: #010101; }
+    .social-btn.wa:hover   { border-color: #25D366; color: #25D366; }
+
+    /* ════════════════════════════════════════
+       CONTACTO CTA
+    ════════════════════════════════════════ */
+    .section-contact {
+      background: var(--dark);
+      padding: 8rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .section-contact::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(158,107,90,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .contact-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--blush);
+      margin-bottom: 1.5rem;
+    }
+    .contact-title {
+      font-family: var(--f-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .contact-title em { font-style: italic; color: var(--blush); }
+    .contact-sub {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.45);
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      line-height: 1.8;
+    }
+
+    .contact-wa {
+      display: inline-flex; align-items: center; gap: 0.8rem;
+      padding: 1.1rem 3rem;
+      background: #25D366;
+      color: var(--white);
+      border-radius: 3px;
+      font-size: 0.85rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: all 0.35s;
+      position: relative; z-index: 1;
+    }
+    .contact-wa:hover {
+      background: #1EBF5A;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(37,211,102,0.3);
+    }
+    .contact-wa svg { width: 20px; height: 20px; }
+
+    .contact-info {
+      margin-top: 3rem;
+      display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+    }
+    .contact-info-item {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .contact-info-item strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.05em;
+      text-transform: none;
+    }
+
+    /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+    footer {
+      background: #0F0C0A;
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--f-display);
+      font-size: 1.1rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.08em;
+    }
+
+    /* ════════════════════════════════════════
+       SCROLL REVEAL (Intersection Observer)
+    ════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.35s; }
+    .reveal-delay-4 { transition-delay: 0.5s; }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero-content { padding: 3rem 1.5rem 4rem; }
+      .section-intro { grid-template-columns: 1fr; gap: 3rem; padding: 5rem 1.5rem; }
+      .intro-img-wrap { order: -1; }
+      .intro-badge { right: 0; }
+      .section-services, .section-gallery, .section-reviews,
+      .section-social, .section-contact { padding: 5rem 1.5rem; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item.large { grid-column: span 2; }
+      .contact-info { gap: 2rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item.large { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cursor personalizado -->
+  <div class="cursor">
+    <div class="cursor-ring"></div>
+    <div class="cursor-dot" style="position:absolute;top:0;left:0;"></div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       NAVEGACIÓN
+  ════════════════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-logo">Dra. Smitt</div>
+    <ul class="nav-links">
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#galeria">Resultados</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#contacto" class="nav-cta">Agendar cita</a>
+  </nav>
+
+  <!-- ════════════════════════════════════════
+       HERO — FOTO DEL EQUIPO
+  ════════════════════════════════════════ -->
+  <section class="hero">
+
+    <!--
+    ╔══════════════════════════════════════════════════╗
+    ║  📷 FOTO HERO — EQUIPO EN EL CONSULTORIO         ║
+    ║                                                  ║
+    ║  Para agregar tu foto:                           ║
+    ║  1. Nombra tu imagen: hero.jpg                   ║
+    ║  2. Colócala en la misma carpeta que index.html  ║
+    ║  3. Borra el div .hero-placeholder               ║
+    ║  4. Descomenta la línea <img> de abajo           ║
+    ║                                                  ║
+    ║  Ideal: foto horizontal 1920×1080 px mínimo      ║
+    ║  del equipo sonriendo en el consultorio          ║
+    ╚══════════════════════════════════════════════════╝
+    -->
+
+    <!-- <img class="hero-img" src="hero.jpg" alt="Equipo Dra. Smitt" /> -->
+
+    <!-- BORRAR ESTE BLOQUE cuando tengas la foto -->
+    <div class="hero-placeholder">
+      <div class="ph-icon">🦷</div>
+      <span>📷 Aquí va tu foto del equipo</span>
+      <span style="font-size:0.7rem; opacity:0.6;">1920 × 1080 px — hero.jpg</span>
+    </div>
+    <!-- FIN BORRAR -->
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <p class="hero-tag">Odontología Estética &amp; Restaurativa</p>
+      <h1 class="hero-title">
+        Tu sonrisa<br />
+        <em>merece lo mejor.</em>
+      </h1>
+      <p class="hero-sub">
+        Cuidado dental personalizado con tecnología de vanguardia<br />
+        y un toque verdaderamente humano.
+      </p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.18A16 16 0 0015.1 16.37l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Agendar cita
+        </a>
+        <a href="#galeria" class="btn-outline">Ver resultados →</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Transición suave hero → contenido -->
+  <div class="wave-divider"></div>
+
+  <!-- ════════════════════════════════════════
+       SOBRE LA DRA. SMITT
+  ════════════════════════════════════════ -->
+  <section id="nosotros">
+    <div class="section-intro">
+      <div>
+        <p class="intro-label reveal">Sobre mí</p>
+        <h2 class="intro-title reveal reveal-delay-1">
+          Más de una década<br />
+          transformando <em>sonrisas</em>
+        </h2>
+        <p class="intro-body reveal reveal-delay-2">
+          <!--
+          ✏️ EDITA ESTE TEXTO con la biografía de la doctora:
+          - ¿Cuántos años de experiencia tiene?
+          - ¿Dónde estudió?
+          - ¿Cuál es su especialidad?
+          - ¿Qué la hace diferente?
+          -->
+          Con formación en las mejores universidades y una pasión genuina por el bienestar
+          de cada paciente, la Dra. Smitt combina técnica avanzada con un trato cálido
+          y personalizado. En su consultorio, cada visita se convierte en una experiencia
+          tranquila y cómoda.
+        </p>
+        <p class="intro-body reveal reveal-delay-2" style="margin-top:0.8rem;">
+          <!--
+          ✏️ Segundo párrafo — filosofía de trabajo o logros destacados
+          -->
+          Su filosofía es simple: escuchar primero, tratar después. Cada sonrisa es única
+          y merece un plan de cuidado pensado exclusivamente para ella.
+        </p>
+        <p class="intro-signature reveal reveal-delay-3">— Dra. Smitt</p>
+      </div>
+
+      <div class="intro-img-wrap reveal reveal-delay-2">
+        <div class="intro-accent"></div>
+
+        <!--
+        ╔══════════════════════════════════════════════════╗
+        ║  📷 RETRATO DE LA DRA. SMITT                     ║
+        ║                                                  ║
+        ║  Para agregar la foto:                           ║
+        ║  1. Nombra tu imagen: dra.jpg                    ║
+        ║  2. Colócala en la misma carpeta que index.html  ║
+        ║  3. Borra el div .intro-img-placeholder          ║
+        ║  4. Descomenta la línea <img> de abajo           ║
+        ║                                                  ║
+        ║  Ideal: retrato vertical 800×1000 px             ║
+        ╚══════════════════════════════════════════════════╝
+        -->
+
+        <!-- <img class="intro-img" src="dra.jpg" alt="Dra. Smitt" /> -->
+
+        <!-- BORRAR cuando tengas la foto -->
+        <div class="intro-img-placeholder">
+          <span>📷 Retrato profesional<br/>de la Dra. Smitt</span>
+          <span style="font-size:0.7rem; opacity:0.5;">800 × 1000 px — dra.jpg</span>
+        </div>
+        <!-- FIN BORRAR -->
+
+        <div class="intro-badge reveal reveal-delay-4">
+          <!--
+          ✏️ Cambia "10+" por los años reales de experiencia
+          -->
+          <strong>10+</strong>
+          <span>Años de<br/>experiencia</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       SERVICIOS
+  ════════════════════════════════════════ -->
+  <section class="section-services" id="servicios">
+    <div class="services-inner">
+      <div class="services-head">
+        <div class="reveal">
+          <p class="section-label">Servicios</p>
+          <h2>Lo que podemos<br /><em>hacer por ti</em></h2>
+        </div>
+        <p class="services-note reveal reveal-delay-2">
+          Los precios varían según el diagnóstico individual.<br />
+          Agenda tu consulta para recibir un plan personalizado.
+        </p>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- SERVICIO 1 -->
+        <div class="service-card reveal">
+          <div class="service-num">01</div>
+          <div class="service-icon">✨</div>
+          <h3 class="service-name">Blanqueamiento Dental</h3>
+          <p class="service-desc">
+            <!--
+            ✏️ Edita la descripción de cada servicio
+            -->
+            Resultados visibles desde la primera sesión con técnicas
+            seguras que cuidan el esmalte de tus dientes.
+          </p>
+          <span class="service-arrow">→</span>
+        </div>
+
+        <!-- SERVICIO 2 -->
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-num">02</div>
+          <div class="service-icon">🦷</div>
+          <h3 class="service-name">Carillas de Porcelana</h3>
+          <p class="service-desc">
+            Láminas ultrafinas que transforman el color, forma y
+            tamaño de tus dientes con resultados duraderos.
+          </p>
+          <span class="service-arrow">→</span>
+        </div>
+
+        <!-- SERVICIO 3 -->
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-num">03</div>
+          <div class="service-icon">😁</div>
+          <h3 class="service-name">Ortodoncia</h3>
+          <p class="service-desc">
+            Tratamientos con brackets tradicionales y alineadores
+            invisibles para una sonrisa perfectamente alineada.
+          </p>
+          <span class="service-arrow">→</span>
+        </div>
+
+        <!-- SERVICIO 4 -->
+        <div class="service-card reveal">
+          <div class="service-num">04</div>
+          <div class="service-icon">🔬</div>
+          <h3 class="service-name">Implantes Dentales</h3>
+          <p class="service-desc">
+            La solución más permanente y natural para reemplazar
+            dientes perdidos y recuperar tu confianza.
+          </p>
+          <span class="service-arrow">→</span>
+        </div>
+
+        <!-- SERVICIO 5 -->
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-num">05</div>
+          <div class="service-icon">🛡️</div>
+          <h3 class="service-name">Limpieza Profunda</h3>
+          <p class="service-desc">
+            Profilaxis dental profesional para mantener encías sanas
+            y una sonrisa saludable todo el año.
+          </p>
+          <span class="service-arrow">→</span>
+        </div>
+
+        <!-- SERVICIO 6 — Personaliza o agrega más -->
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-num">06</div>
+          <div class="service-icon">👶</div>
+          <h3 class="service-name">Odontopediatría</h3>
+          <p class="service-desc">
+            <!--
+            ✏️ Agrega o quita servicios según lo que ofreces
+            -->
+            Atención especializada para los más pequeños, creando
+            hábitos saludables desde temprana edad.
+          </p>
+          <span class="service-arrow">→</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       GALERÍA DE RESULTADOS
+  ════════════════════════════════════════ -->
+  <section class="section-gallery" id="galeria">
+    <div class="gallery-head reveal">
+      <p class="section-label">Resultados</p>
+      <h2>Sonrisas que <em>hablan por sí solas</em></h2>
+    </div>
+
+    <!--
+    ╔══════════════════════════════════════════════════════════════╗
+    ║  📷 GALERÍA — 5 FOTOS DE RESULTADOS / ANTES & DESPUÉS        ║
+    ║                                                              ║
+    ║  Instrucciones para cada imagen:                             ║
+    ║  - Borra el div .gallery-ph correspondiente                  ║
+    ║  - Descomenta la línea <img> que está encima                 ║
+    ║                                                              ║
+    ║  gallery1.jpg → Imagen grande (izquierda, doble altura)      ║
+    ║                 Ideal: caso antes/después o detalle de sonrisa║
+    ║                 Tamaño: 800×1000 px mínimo                   ║
+    ║                                                              ║
+    ║  gallery2.jpg → Imagen superior derecha                      ║
+    ║  gallery3.jpg → Imagen inferior derecha                      ║
+    ║  gallery4.jpg → Imagen superior extrema derecha              ║
+    ║  gallery5.jpg → Imagen inferior extrema derecha              ║
+    ║                 Tamaño para gallery2-5: 600×400 px mínimo    ║
+    ║                                                              ║
+    ║  Recomendado: fotos de sonrisas de pacientes (con permiso)   ║
+    ║  o imágenes del consultorio                                  ║
+    ╚══════════════════════════════════════════════════════════════╝
+    -->
+
+    <div class="gallery-grid">
+
+      <!-- Imagen grande izquierda -->
+      <div class="gallery-item large reveal">
+        <!-- <img src="gallery1.jpg" alt="Resultado 1" /> -->
+        <div class="gallery-ph">
+          <span class="ph-num">01</span>
+          <span>📷 Foto grande<br/>gallery1.jpg<br/>800 × 1000 px</span>
+        </div>
+        <div class="gallery-overlay"><span>Caso destacado</span></div>
+      </div>
+
+      <!-- Imagen 2 -->
+      <div class="gallery-item reveal reveal-delay-1">
+        <!-- <img src="gallery2.jpg" alt="Resultado 2" /> -->
+        <div class="gallery-ph">
+          <span class="ph-num">02</span>
+          <span>📷 gallery2.jpg</span>
+        </div>
+        <div class="gallery-overlay"><span>Blanqueamiento</span></div>
+      </div>
+
+      <!-- Imagen 3 -->
+      <div class="gallery-item reveal reveal-delay-2">
+        <!-- <img src="gallery3.jpg" alt="Resultado 3" /> -->
+        <div class="gallery-ph">
+          <span class="ph-num">03</span>
+          <span>📷 gallery3.jpg</span>
+        </div>
+        <div class="gallery-overlay"><span>Carillas</span></div>
+      </div>
+
+      <!-- Imagen 4 -->
+      <div class="gallery-item reveal reveal-delay-1">
+        <!-- <img src="gallery4.jpg" alt="Resultado 4" /> -->
+        <div class="gallery-ph">
+          <span class="ph-num">04</span>
+          <span>📷 gallery4.jpg</span>
+        </div>
+        <div class="gallery-overlay"><span>Ortodoncia</span></div>
+      </div>
+
+      <!-- Imagen 5 -->
+      <div class="gallery-item reveal reveal-delay-2">
+        <!-- <img src="gallery5.jpg" alt="Resultado 5" /> -->
+        <div class="gallery-ph">
+          <span class="ph-num">05</span>
+          <span>📷 gallery5.jpg</span>
+        </div>
+        <div class="gallery-overlay"><span>Implante</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       TESTIMONIOS
+  ════════════════════════════════════════ -->
+  <section class="section-reviews">
+    <div class="reviews-inner">
+      <div class="reviews-head reveal">
+        <p class="section-label">Testimonios</p>
+        <h2>Lo que dicen nuestros pacientes</h2>
+      </div>
+
+      <div class="reviews-grid">
+        <!--
+        ✏️ EDITA ESTOS TESTIMONIOS con reseñas reales de tus pacientes
+        -->
+        <div class="review-card reveal">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            "La Dra. Smitt cambió mi vida. Llevaba años sin sonreír con confianza
+            y hoy no puedo dejar de hacerlo. Un trato increíblemente humano."
+          </p>
+          <p class="review-author">— María G.</p>
+        </div>
+
+        <div class="review-card reveal reveal-delay-1">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            "Fui con miedo al dentista como siempre, y salí completamente tranquilo.
+            El consultorio es hermoso y la atención es de primer nivel."
+          </p>
+          <p class="review-author">— Carlos R.</p>
+        </div>
+
+        <div class="review-card reveal reveal-delay-2">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">
+            "Mis carillas quedaron perfectas. Me explicaron todo el proceso
+            con paciencia y el resultado superó mis expectativas."
+          </p>
+          <p class="review-author">— Sofía M.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       REDES SOCIALES
+  ════════════════════════════════════════ -->
+  <section class="section-social">
+    <p class="social-label reveal">Síguenos</p>
+    <h2 class="social-title reveal reveal-delay-1">
+      Encuéntranos en nuestras redes
+    </h2>
+
+    <div class="social-links">
+
+      <!--
+      ✏️ REEMPLAZA los "#" con tus URLs reales:
+         Facebook:  https://facebook.com/TuPagina
+         Instagram: https://instagram.com/TuUsuario
+         TikTok:    https://tiktok.com/@TuUsuario
+         WhatsApp:  https://wa.me/521XXXXXXXXXX (con código de país)
+      -->
+
+      <a href="#" class="social-btn fb reveal" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+        </svg>
+        Facebook
+      </a>
+
+      <a href="#" class="social-btn ig reveal reveal-delay-1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        Instagram
+      </a>
+
+      <a href="#" class="social-btn tt reveal reveal-delay-2" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.78a4.85 4.85 0 01-1.01-.09z"/>
+        </svg>
+        TikTok
+      </a>
+
+      <a href="#" class="social-btn wa reveal reveal-delay-3" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+        WhatsApp
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       CONTACTO / CTA FINAL
+  ════════════════════════════════════════ -->
+  <section class="section-contact" id="contacto">
+    <p class="contact-label reveal">Contáctanos</p>
+    <h2 class="contact-title reveal reveal-delay-1">
+      Tu sonrisa ideal<br />
+      <em>empieza hoy</em>
+    </h2>
+    <p class="contact-sub reveal reveal-delay-2">
+      Agenda tu consulta de valoración sin compromiso.
+      Te esperamos con gusto para conocerte y crear el plan
+      perfecto para tu sonrisa.
+    </p>
+
+    <!--
+    ✏️ Cambia el número de WhatsApp:
+       wa.me/521XXXXXXXXXX → sustituye con tu número
+       El texto después de ?text= es el mensaje predeterminado
+    -->
+    <a href="https://wa.me/521XXXXXXXXXX?text=Hola,%20me%20gustaría%20agendar%20una%20cita."
+       class="contact-wa reveal reveal-delay-3" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Escribir por WhatsApp
+    </a>
+
+    <div class="contact-info reveal reveal-delay-4">
+      <!--
+      ✏️ Edita horario, dirección y teléfono reales
+      -->
+      <div class="contact-info-item">
+        <strong>Lun – Vie: 9am – 7pm</strong>
+        Horario de atención
+      </div>
+      <div class="contact-info-item">
+        <!--
+        ✏️ Coloca la dirección real del consultorio
+        -->
+        <strong>Cuernavaca, Morelos</strong>
+        Dirección del consultorio
+      </div>
+      <div class="contact-info-item">
+        <!--
+        ✏️ Coloca el teléfono real
+        -->
+        <strong>(777) 000-0000</strong>
+        Teléfono
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-logo">Dra. Smitt — Odontología Estética</div>
+    <p class="footer-copy">
+      <!--
+      ✏️ Actualiza el año si es necesario
+      -->
+      © 2025 Dra. Smitt. Todos los derechos reservados.
+    </p>
+  </footer>
+
+  <!-- ════════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════ -->
+  <script>
+    // ── Cursor personalizado ──────────────────
+    const cursorRing = document.querySelector('.cursor-ring');
+    const cursorDot  = document.querySelector('.cursor-dot');
+
+    document.addEventListener('mousemove', e => {
+      cursorRing.style.left = e.clientX + 'px';
+      cursorRing.style.top  = e.clientY + 'px';
+      cursorDot.style.left  = e.clientX + 'px';
+      cursorDot.style.top   = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursorRing.style.width  = '56px';
+        cursorRing.style.height = '56px';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursorRing.style.width  = '36px';
+        cursorRing.style.height = '36px';
+      });
+    });
+
+    // ── Navbar scroll ─────────────────────────
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ── Scroll Reveal (Intersection Observer) ─
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Parallax sutil en el hero ─────────────
+    const heroContent = document.querySelector('.hero-content');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      if (scrolled < window.innerHeight && heroContent) {
+        heroContent.style.transform = `translateY(${scrolled * 0.25}px)`;
+        heroContent.style.opacity   = 1 - scrolled / (window.innerHeight * 0.8);
+      }
+    });
+  </script>
+</body>
+</html>
