@@ -153,18 +153,7 @@
       display: flex; align-items: flex-end;
     }
 
-    /* ──────────────────────────────────────
-       📷 IMAGEN HERO
-       Reemplaza esta sección con tu foto.
-       Tipo recomendado:
-         - Foto horizontal del equipo en el consultorio
-         - Resolución mínima: 1920×1080 px
-         - Formato: JPG o WebP
-         - Tono: cálido, profesional, con luz natural si es posible
-       Cómo reemplazar:
-         1. Sube la foto a la misma carpeta que index.html con nombre "hero.jpg"
-         2. Quita el bloque .hero-placeholder y descomenta la línea <img>
-    ────────────────────────────────────── -->
+       
     .hero-img {
       position: absolute; inset: 0;
       width: 100%; height: 100%;
@@ -176,24 +165,7 @@
       to { transform: scale(1); }
     }
 
-    /* PLACEHOLDER temporal — borra esto cuando tengas la foto */
-    .hero-placeholder {
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, #3D2B24 0%, #7A5248 40%, #C8A898 100%);
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 1rem;
-    }
-    .hero-placeholder span {
-      font-family: var(--f-display);
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-    .hero-placeholder .ph-icon {
-      font-size: 3rem; opacity: 0.3;
-    }
-    /* FIN PLACEHOLDER */
+   
 
     .hero-overlay {
       position: absolute; inset: 0;
